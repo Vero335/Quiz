@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Quiz ITS LifeTech</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+  body {
+    font-family: 'Montserrat', Arial, sans-serif;
+    background: linear-gradient(135deg, #e6f0ff 0%, #cce0ff 100%);
+    margin: 0; padding: 0;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh;
+  }
+  .quiz-container {
+    background: white;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 83, 179, 0.2);
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+  }
+  .logo {
+    display: block;
+    margin: 0 auto 20px auto;
+    max-width: 180px;
+    height: auto;
+  }
+  h1 {
+    color: #003366;
+    margin-bottom: 25px;
+    font-weight: 600;
+    letter-spacing: 1px;
+  }
+  progress#progress-bar {
+    width: 100%;
+    height: 20px;
+    margin-top: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    appearance: none;
+  }
+  progress#progress-bar::-webkit-progress-bar {
+    background-color: #cce0ff;
+    border-radius: 12px;
+  }
+  progress#progress-bar::-webkit-progress-value {
+    background-color: #0073e6;
+    border-radius: 12px;
+    transition: width 0.3s ease;
+  }
+  progress#progress-bar::-moz-progress-bar {
+    background-color: #0073e6;
+    border-radius: 12px;
+    transition: width 0.3s ease;
+  }
+  .question {
+    font-size: 1.3em;
+    margin-bottom: 20px;
+    color: #003366;
+    min-height: 80px;
+  }
+  .answers button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.1em;
+    background-color: #0073e6;
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 115, 230, 0.3);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: 500;
+  }
+  .answers button:hover:not(:disabled) {
+    background-color: #3399ff;
+    transform: translateY(-2px);
+  }
+  .answers button.correct {
+    background-color: #4CAF50 !important;
+    box-shadow: 0 6px 15px rgba(76, 175, 80, 0.6);
+    color: white;
+  }
+  .answers button.wrong {
+    background-color: #f44336 !important;
+    box-shadow: 0 6px 15px rgba(244, 67, 54, 0.6);
+    color: white;
+  }
+  .score {
+    font-size: 1.4em;
+    margin-top: 25px;
+    color: #003366;
+    font-weight: 600;
+  }
+  .next-btn {
+    background: #0059b3;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 25px auto 0 auto;
+    font-size: 1.2em;
+    box-shadow: 0 8px 20px rgba(0, 89, 179, 0.4);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    display: block;
+  }
+  .next-btn:hover {
+    background-color: #3385ff;
+    transform: translateY(-3px);
+  }
+  .start-btn {
+    background: #0059b3;
+    color: white;
+    padding: 18px 40px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.3em;
+    font-weight: 600;
+    box-shadow: 0 10px 25px rgba(0, 89, 179, 0.5);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  .start-btn:hover {
+    background-color: #3385ff;
+    transform: translateY(-4px);
+  }
+</style>
+</head>
+<body>
+<div class="quiz-container">
+  <img src="https://www.itsvolta.it/wp-content/uploads/2021/08/LOGOBLUSITOx.png" alt="Logo ITS LifeTech" class="logo" />
+  <h1>Quiz ITS LifeTech</h1>
+  <div id="quiz">
+    <button id="start-btn" class="start-btn">Inizia Quiz</button>
+  </div>
+  <progress id="progress-bar" value="0" max="100" style="display:none;"></progress>
+</div>
+<script>
+const quizData = [
+   {
+    question: "Un laboratorio biotech avanza la sua capacità diagnostica adottando:",
+    answers: [
+      { text: "Analisi con cartine tornasole", correct: false },
+      { text: "Incubatore statico", correct: false },
+      { text: "Spettrometria di massa ad alta risoluzione", correct: true },
+      { text: "Lampada UV domestica", correct: false }
+    ]
+  },
+  {
+    question: "In Informatica Biomedica, quale tecnologia si utilizza per l'elaborazione delle immagini mediche?",
+    answers: [
+      { text: "Tecnologie di elaborazione su microcontrollori", correct: false },
+      { text: "Sistemi di tomografia computerizzata (CT)", correct: true },
+      { text: "Protocollo FTP per trasferimenti di dati", correct: false },
+      { text: "Sistemi di automazione industriale", correct: false }
+    ]
+  },
+   {
+    question: "Il rifasamento elettrico di un impianto:",
+    answers: [
+      { text: "riduce la corrente assorbita", correct: true },
+      { text: "riduce la potenza attiva assorbita", correct: false },
+      { text: "riduce i costi di installazione dell’impianto", correct: false },
+      { text: "riduce la corrente continua assorbita", correct: false }
+    ]
+  },
+  {
+    question: "Qual è il cuore di un sistema operativo moderno?",
+    answers: [
+      { text: "File system", correct: false },
+      { text: "CPU", correct: false },
+      { text: "Kernel", correct: true },
+      { text: "BIOS", correct: false }
+    ]
+  },
+  {
+    question: "Nel settore Wellness and Hospitality, quale tecnologia è maggiormente usata per monitorare il benessere degli ospiti?",
+    answers: [
+      { text: "Software di contabilità", correct: false },
+      { text: "Dispositivi indossabili per biomonitoraggio", correct: true },
+      { text: "Protocolli di comunicazione TCP/IP", correct: false },
+      { text: "Strumenti per analisi genetiche", correct: false }
+    ]
+  },
+  {
+    question: "L'attenuazione prodotta su di un segnale che attraversa un mezzo trasmissivo reale è misurata in:",
+    answers: [
+      { text: "volt (V)", correct: false },
+      { text: "ampere (A)", correct: false },
+      { text: "decibel (dB)", correct: true },
+      { text: "watt (W)", correct: false }
+    ]
+  },
+  {
+    question: "Quale protocollo è fondamentale nella gestione delle reti di comunicazione dati per un Data Network Specialist?",
+    answers: [
+      { text: "Protocollo SMTP", correct: false },
+      { text: "Standard HDMI", correct: false },
+      { text: "Protocollo TCP/IP", correct: true },
+      { text: "Bluetooth Low Energy (BLE)", correct: false }
+    ]
+  },
+  {
+    question: "Un sistema avanzato per la personalizzazione dell’esperienza nel wellness sfrutta maggiormente:",
+    answers: [
+      { text: "Big Data e Machine Learning", correct: true },
+      { text: "Archivio cartaceo ospiti", correct: false },
+      { text: "NFC monouso", correct: false },
+      { text: "CD audio terapeutico", correct: false }
+    ]
+  },
+  {
+    question: "In ambito Biotech, quale processo è alla base della produzione di farmaci biotecnologici?",
+    answers: [
+      { text: "Tecniche di ingegneria genetica e fermentazione", correct: true },
+      { text: "Sviluppo di software per la hospitality", correct: false },
+      { text: "Riparazione hardware di apparecchi medicali", correct: false },
+      { text: "Gestione di reti LAN aziendali", correct: false }
+    ]
+  },
+{
+    question: "Secondo il modello ISO/OSI, a che livello opera uno switch Ethernet?",
+    answers: [
+      { text: "Livello fisico (1)", correct: false },
+      { text: "Livello collegamento dati (2)", correct: true },
+      { text: "Livello rete (3)", correct: false },
+      { text: "Livello sessione (5)", correct: false }
+    ]
+  },
+  {
+    question: "Qual è il principio di funzionamento di un ELISA nella diagnostica biotech?",
+    answers: [
+      { text: "Sequenziamento diretto del DNA", correct: false },
+      { text: "Interazione antigene-anticorpo e segnale enzimatico", correct: true },
+      { text: "Fermentazione batterica", correct: false },
+      { text: "Cristallizzazione proteica", correct: false }
+    ]
+  },
+];
+const quiz = document.getElementById('quiz');
+const startBtn = document.getElementById('start-btn');
+const progressBar = document.getElementById('progress-bar');
+let currentQuestionIndex = 0;
+let score = 0;
+
+startBtn.addEventListener('click', startQuiz);
+
+function startQuiz() {
+  score = 0;
+  currentQuestionIndex = 0;
+  startBtn.style.display = 'none';
+  progressBar.value = 0;
+  progressBar.style.display = 'block';
+  showQuestion();
+}
+
+function showQuestion() {
+  let currentQuestion = quizData[currentQuestionIndex];
+  const progressPercent = (currentQuestionIndex / quizData.length) * 100;
+  progressBar.value = progressPercent;
+
+  let questionHTML = `<div class="question">${currentQuestion.question}</div><div class="answers">`;
+  currentQuestion.answers.forEach((answer, index) => {
+    questionHTML += `<button onclick="selectAnswer(${index})">${answer.text}</button>`;
+  });
+  questionHTML += '</div>';
+  quiz.innerHTML = questionHTML;
+}
+
+function selectAnswer(index) {
+  let currentQuestion = quizData[currentQuestionIndex];
+  let buttons = document.querySelectorAll('.answers button');
+  buttons.forEach((btn, idx) => {
+    btn.disabled = true;
+    if (currentQuestion.answers[idx].correct) {
+      btn.classList.add('correct');
+    }
+    if (idx === index && !currentQuestion.answers[idx].correct) {
+      btn.classList.add('wrong');
+    }
+  });
+  if (currentQuestion.answers[index].correct) {
+    score++;
+  }
+  currentQuestionIndex++;
+  let nextButton = document.createElement('button');
+  nextButton.textContent = currentQuestionIndex < quizData.length ? 'Prossima domanda' : 'Vedi risultato';
+  nextButton.className = 'next-btn';
+  nextButton.onclick = () => {
+    if (currentQuestionIndex < quizData.length) {
+      showQuestion();
+    } else {
+      showScore();
+    }
+  };
+  quiz.appendChild(nextButton);
+}
+
+function showScore() {
+  progressBar.value = 100;
+  quiz.innerHTML = `<div class="score">Hai risposto correttamente a ${score} su ${quizData.length} domande!</div><button class="start-btn" onclick="startQuiz()">Riprova</button>`;
+  // Nascondi barra se vuoi, qui la lascio visibile al 100%
+}
+</script>
+</body>
+</html>
